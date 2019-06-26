@@ -3,6 +3,7 @@ package com.example.wangc.androiddemo
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.BeforeClass
 
 /**
  * Example local unit test, which will execute on the development machine (host).

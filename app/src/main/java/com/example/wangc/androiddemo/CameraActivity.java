@@ -17,6 +17,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ *调用系统相机拍照
+ */
 public class CameraActivity extends AppCompatActivity {
 
     private static  final int REQUEST_IMAGE_CAPTURE = 100;
@@ -85,9 +88,20 @@ public class CameraActivity extends AppCompatActivity {
         }
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-//            File file = new File(mCurrentPhotoPath);
             Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath);
             mImageView.setImageBitmap(bitmap);
+            galleryAddPic();
         }
+    }
+
+    /**
+     * 添加到相册
+     */
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 }
